@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            gap: 10px;
+            justify-content: center;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            font-size: 2rem;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .acertou {
+            background-color: aquamarine;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Jogo da mémoria</h1>
+    <div  class="grid"  id="tabuleiro"></div>
+    <script>       
+        const emojis = ["🚀","🚁","🚂","👮","👰","🚄","👲","🚃"]
+        let matriz = [ ...emojis , ...emojis ] // operador spread
+        matriz = matriz.sort( () => 0.5 - Math.random());
+
+        let primeira = null
+        let segunda = null
+        let travado = false;
+
+        const tabuleiro = document.getElementById("tabuleiro")
+
+        matriz.forEach(  (emoji, index)   => {
+            const carta = document.createElement("div")
+            carta.classList.add("card");
+            carta.dataset.index = index
+            carta.textContent = "";
+            carta.addEventListener("click",() => mostrarCarta(carta, emoji));
+            tabuleiro.appendChild(carta)
+        })
+
+        function mostrarCarta(carta, emoji) {
+            if ( travado || carta.textContent !== "") {
+                return;
+            }
+            carta.textContent = emoji
+
+            if (!primeira) {
+                primeira = {carta, emoji}
+            } else if (!segunda) {
+                segunda = {carta, emoji}
+                travado = true
+
+                setTimeout(  () => {
+                    if (primeira.emoji === segunda.emoji) {
+                        primeira.carta.classList.add("acertou")
+                        segunda.carta.classList.add("acertou")
+                    } else {
+                        primeira.carta.textContent = ""
+                        segunda.carta.textContent = ""
+                    }
+                    primeira = null
+                    segunda = null
+                    travado = false
+                },1000)
+
+
+            }
+
+
+        }
+
+
+    </script>
+
+
+    
+</body>
+</html>
