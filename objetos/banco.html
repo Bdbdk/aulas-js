@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>banco simples</title>
+
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; margin: 20px;}
+        #menu, #login {margin-top: 20px;}
+        .hidden{display: none;}
+        button{margin: 5px;}
+
+    </style>
+</head>
+<body>
+
+    <h1> banco simples </h1>
+
+    <div id="login">
+        <h3>acessar conta</h3>
+        <form id="formLogin">
+
+            Agencia: <input type="text" id="agencia"> <br> <br>
+            conta: <input type="text" id="numeroConta"> <br> <br>
+            senha: <input type="password" id="senha"> <br> <br>
+            <button type="submit" id="botaoEntrar">entrar</button>
+
+
+
+        </form>
+
+
+    </div>
+
+    <div id="menu" class="hidden">
+
+
+
+        <button onclick="verSaldo()" >ver Saldo</button>
+        <button onclick="sacar()"> sacar</button>
+        <button onclick="depositar()">depositar</button>
+        <button onclick="sair()">Sair</button>
+
+
+
+
+    </div>
+
+
+    
+    <script>
+
+
+// Criando vetor de contas
+let contas = []
+
+for (let i = 0; i < 1 ; i++) {
+    console.log(`----- Cadastro ${i+1} ------`)
+    let titular = prompt("Digite seu nome: ")
+    let agencia = prompt("Digite a agencia: ")
+    let account = prompt("Digite sua conta: ")
+    let senha = prompt("Digite sua senha: ")
+    let saldo = parseFloat(prompt("Saldo inicial: "))
+
+    // criar o objeto
+    let conta = {
+        titular: titular,
+        agencia: agencia,
+        account: account,
+        senha: senha,
+        saldo: saldo,
+        sacar: function(valor) {
+            this.saldo = this.saldo - valor
+        },
+        depositar: function(valor) {
+            this.saldo = this.saldo + valor
+        }
+    }
+    contas.push(conta)
+}
+
+
+    let contaAtual = null
+
+
+    document.getElementById("formLogin").addEventListener("submit", function(e) {       
+        e.preventDefault();
+
+        let agencia = document.getElementById("agencia")
+        let conta = document.getElementById("numeroConta")
+        let senha = document.getElementById("senha")
+
+        for (let i =0; i < contas.length; i++) {
+            if (contas[i].agencia == agencia.value && contas[i].account == conta.value && contas[i].senha == senha.value ) {
+                document.getElementById("login").classList.add("hidden")
+                document.getElementById("menu").classList.remove("hidden")
+                contaAtual = contas[i]
+                break
+            }
+        }
+
+       
+
+    
+    })
+
+    function verSaldo() {
+        alert(`Saldo atual é R$ ${contaAtual.saldo}`)
+    }
+
+    function sair() {
+        document.getElementById("login").classList.remove("hidden")
+        document.getElementById("menu").classList.add("hidden")
+    }
+
+    </script> 
+
+
+
+
+
+
+
+    <script>
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
