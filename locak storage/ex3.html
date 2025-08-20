@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+ <script>
+
+
+    let vetor = ["azul", "vermelho", "amarelo"]
+    localStorage.setItem("cores", JSON.stringify(vetor))
+
+    //supor cadastro simples
+    let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+    if (alunos == null) {
+        let nome = prompt("digite seu nome")
+        let idade = prompt("digite sua idade")
+    }
+
+
+    let aluno = {
+        nome: nome,
+        idade: idade
+
+    }
+    alunos.push(aluno)
+
+ </script>
+
+
+</body>
+</html>

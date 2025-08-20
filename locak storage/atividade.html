@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <h1>LOGIN</h1>
+    <input id="email" type="text"> digite seu email <br> <br>
+    <input id="senha" type="password"> digite sua senha <br> <br>
+
+    <button onclick="registrar()">registrar</button> <br> <br>
+    <button onclick="entrar()">entrar</button>
+
+    <script>
+
+
+        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        let email = document.getElementById("email");
+        let senha = document.getElementById("senha");
+
+
+        function registrar() {
+          
+
+            let usuario = {
+                email: email.value,
+                senha: senha.value,
+            }
+
+            let existe = false;
+
+            for (let i = 0; i < usuarios.length; i++) {
+                
+                if (usuarios[i].email === email.value) {
+                    alert("Já existe um usuario com este email")
+                    existe = true
+                    break
+                }
+            }
+
+
+            if (existe == false) {
+                usuarios.push(usuario)
+                localStorage.setItem('usuarios', JSON.stringify(usuarios))
+                alert("Usuario cadastrado")
+            }
+
+        }
+
+
+
+        function entrar() {
+            console.log("usuarios logados: ", usuarios)
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
